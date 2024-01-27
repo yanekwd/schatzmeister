@@ -1,0 +1,41 @@
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:root@localhost:5432/budget_tracker_db"
+}
+
+generator photon {
+  provider = "prisma-client-js"
+}
+
+enum TransactionCategory {
+  SAVINGS
+  INVESTMENTS
+  RENT
+  UTILITIES
+  GROCERIES
+  DININGOUT
+  TRANSPORTATION
+  SHOPPING
+  ENTERTAINMENT
+  TRAVEL
+  INSURANCE
+  MISCELLANEOUS
+}
+
+enum TransactionType {
+  EARNING
+  FIXEDCOST
+  VARIABLECOST
+}
+
+model Transaction {
+  transactionId         Int   @id @default(autoincrement())
+  paymentMethod         String
+  amount                Float
+  currency              String
+  transactionDate       DateTime @default(now())
+  clientOrRecipientName String
+  description           String
+  type                  TransactionType
+  category              TransactionCategory
+}
